@@ -1,9 +1,14 @@
 ## Hi there 👋
 
+🔭 I'm currently a third-year undergraduate student in ISE, Southeast University, Nanjing, Jiangsu, China
+🌱 I’m currently learning sth. about Deep Learning
+
 <!--
 **RichardHu6666/RichardHu6666** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
 Here are some ideas to get you started:
+
+🔭 I'm
 
 - 🔭 I’m currently working on ...
 - 🌱 I’m currently learning ...
