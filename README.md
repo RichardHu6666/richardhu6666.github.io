@@ -59,21 +59,42 @@ bundle exec jekyll serve
 
 ### Checks
 
-Run this before pushing. It parses every template with the same Liquid gem the
-Pages build uses and renders the sidebar against the real `_config.yml`:
+Run these before pushing.
 
 ```sh
-ruby .preview/liquidcheck.rb
+ruby .preview/liquidcheck.rb      # templates, sidebar guards, head metadata
+python .preview/contrast.py       # WCAG AA contrast for the ink palette
 ```
 
-It catches two things that are otherwise only visible in a failed Pages run or
-on the live site:
+`liquidcheck.rb` parses every template with the same Liquid gem the Pages build
+uses and renders two includes against the real `_config.yml`. It catches three
+things that would otherwise only surface in a failed Pages run or on the live
+site:
 
-- A Liquid syntax error in any template. Note that Liquid has no nested tags: a
+- A Liquid syntax error in any template. Liquid has no nested tags: a
   `{% comment %}` block containing another tag breaks the build.
 - Sidebar links rendering for author fields that are present but empty. Liquid
   treats an empty string as truthy, and neither `!= blank` nor `strip != empty`
   filters it out — the guard used here is `size > 0`.
+- A head that would produce a poor shared link: missing `og:type`,
+  `og:description` or `og:image`, a self-repeating `<title>`, or an ld+json
+  block that is not valid JSON (including a `"sameAs": null`).
+
+`contrast.py` reads the palette straight out of `_sass/_site.scss` so it cannot
+drift from what ships, and reports the darkest value each token would need.
+
+### Sharing card
+
+`assets/images/og-card.jpg` is the preview image for shared links. It is
+generated rather than hand-made, so it stays in step with the page's own type
+and palette:
+
+```sh
+python .preview/og-image.py       # writes assets/images/og-card.jpg
+```
+
+Re-run it when the name, role or affiliation changes. `_config.yml` points at it
+through `og_image`.
 
 ### Preview without Ruby
 
@@ -83,8 +104,12 @@ Jekyll output:
 
 ```sh
 npm install --no-save sass
-node .preview/build.mjs      # writes .preview/index.html
+node .preview/build.mjs                     # writes .preview/index.html
+PREVIEW_MEASURE=1 node .preview/build.mjs   # adds an on-page probe
 ```
+
+The probe renders computed widths, contrast ratios and heading order into the
+page, because headless Chrome cannot be driven over the DevTools pipe here.
 
 `.preview/` is a scratch directory for inspecting the design and is not published.
 

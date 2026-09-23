@@ -85,7 +85,8 @@ author:
   youtube          : 
   zhihu            : 
 
-# Rendered as the "Research interests" block in the sidebar. One entry per line.
+# Rendered as the "Research interests" block in the sidebar and as knowsAbout
+# in the schema.org Person block. One entry per line.
 author_interests:
   - "Visual intelligence"
   - "Multimodal learning"
@@ -149,12 +150,20 @@ facebook:
   username               :
   app_id                 :
   publisher              :
-og_image                 :  
+# Sharing card, used for og:image / twitter:image. Path is relative to
+# assets/images/. Regenerate with: python .preview/og-image.py
+og_image                 : "og-card.jpg"
 og_description           :  
 social:
-  type                   : 
+  # Drives the schema.org Person block in _includes/seo.html.
+  # `links` is the sameAs list - the other places this person can be found on
+  # the web. It feeds search engines and knowledge panels, so it is kept here
+  # as an explicit list rather than derived, because the templates serialise it
+  # directly with jsonify. Add a line per profile.
+  type                   : "Person"
   name                   : 
-  links: 
+  links:
+    - "https://github.com/XiangyunHu"
 
 # Analytics
 analytics:

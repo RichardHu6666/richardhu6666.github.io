@@ -66,11 +66,16 @@
                   "Segoe UI", "PingFang SC", "Microsoft YaHei", Roboto,
                   "Helvetica Neue", Arial, sans-serif;
 
-  /* Ink ------------------------------------------------------------------ */
-  --ink:          #16202b;
-  --ink-soft:     #38495a;
-  --ink-muted:    #5d6f7e;
-  --ink-faint:    #8b9aa6;
+  /* Ink ------------------------------------------------------------------
+     Contrast ratios below are against white and verified by
+     .preview/contrast.py. `--ink-faint` sits at 4.55 because it carries the
+     section labels ("01 / RESEARCH") and the footer at 11-13px, which need
+     WCAG AA (4.5) rather than the 3.0 that large text may use. It was
+     #8b9aa6, which measured only 2.89 and failed on every label. */
+  --ink:          #16202b;   /* 16.5 */
+  --ink-soft:     #38495a;   /*  9.3 */
+  --ink-muted:    #5d6f7e;   /*  5.2 */
+  --ink-faint:    #66727b;   /*  4.6 */
 
   /* Surfaces ------------------------------------------------------------- */
   --bg:           #ffffff;
@@ -186,12 +191,12 @@ button:focus-visible {
 }
 
 /* Wordmark pushes every navigation link to the right edge. */
-.greedy-nav .visible-links li:first-child {
+.greedy-nav .visible-links li.masthead__menu-item--wordmark {
   margin-right: auto;
   font-weight: 400;
 }
 
-.greedy-nav .visible-links li:first-child a {
+.greedy-nav .visible-links li.masthead__menu-item--wordmark a {
   padding: 20px 0;
   color: var(--ink);
   font-family: var(--font-display);
@@ -347,7 +352,7 @@ button:focus-visible {
   text-align: left;
 }
 
-.profile__details h2 {
+.profile__name {
   margin: 0 0 8px;
   color: var(--ink);
   font-family: var(--font-display);
@@ -471,13 +476,12 @@ button:focus-visible {
   color: var(--ink);
 }
 
-.home-section h1 {
-  margin: 0 0 22px;
-  font-size: 2.95rem;
-  line-height: 1.1;
-  letter-spacing: -0.005em;
-}
-
+/* Each section carries one <h2>, and it is the kicker label - the label
+   already names the section, so the visible label and the outline heading are
+   the same element rather than two competing headings. Entries sit at <h3>
+   beneath it. The rule below matches at the same specificity as
+   `.home-section .section-kicker` and comes first, so the kicker wins on
+   source order and needs no !important of its own. */
 .home-section h2 {
   margin: 0 0 26px;
   font-size: 1.72rem;
@@ -502,14 +506,15 @@ button:focus-visible {
   margin-bottom: 0;
 }
 
-/* Small uppercase eyebrow above each section heading. The extra top margin
-   separates it from the hairline that closes the previous section and gives
-   the heading room to breathe. */
-.section-kicker {
-  margin: 0 0 15px !important;
+/* Section label. Written as `.home-section .section-kicker` so it matches the
+   specificity of the `.home-section h2` rule above and wins on source order;
+   an `!important` here used to be defeated by a later `h2` rule in the phone
+   media query, which silently inflated every section label. */
+.home-section .section-kicker {
+  margin: 0 0 15px;
   padding-top: 10px;
   color: var(--ink-faint);
-  font-size: 0.695rem !important;
+  font-size: 0.695rem;
   font-weight: 700;
   letter-spacing: 0.17em;
   text-transform: uppercase;
@@ -524,23 +529,41 @@ button:focus-visible {
   white-space: nowrap;
 }
 
-/* The display name and the Chinese name sit on one line, spaced by column-gap.
-   The h1 must be free to span the full column: it is a flex container, so it
-   shrink-wraps its content, and the measure cap meant for body text would
-   otherwise squeeze it narrow enough to wrap. Wrapping is still allowed for
-   very narrow viewports, rather than nowrap, to avoid overflow. */
-.home-section h1 {
+/* The display name is a <p>, not a heading: the h1 above it is for screen
+   readers, and this is the visual hero. `aria-hidden` keeps the name from
+   being announced twice. It sits on one line with the Chinese name, spaced by
+   column-gap so the two never touch; the measure cap meant for body text must
+   not apply, or it would squeeze the line into a wrap. */
+.home-section .display-name {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   column-gap: 0.5em;
   max-width: none;
+  margin: 0 0 22px;
+  font-family: var(--font-display);
+  font-size: 2.95rem;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+  color: var(--ink);
 }
 
-.home-section h1 .display-name {
-  font-size: 2.95rem;
-  line-height: 1.1;
-}.lead {
+/* Available to assistive technology, out of the visual flow. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.lead {
   color: var(--ink-soft);
   font-size: 1.19rem;
   line-height: 1.78;
@@ -732,7 +755,7 @@ button:focus-visible {
     margin: 0;
   }
 
-  .profile__details h2 {
+  .profile__name {
     font-size: 1.5rem;
   }
 
@@ -774,13 +797,20 @@ button:focus-visible {
   }
 
   /* Scoped to .display-name so the Chinese name keeps its em ratio. */
-  .home-section h1 .display-name {
+  .home-section .display-name {
     font-size: 2.15rem;
   }
 
+  /* `.home-section h2` above matches this too, so the label needs its own
+     size here; source order alone no longer decides inside the media query. */
   .home-section h2 {
     margin-bottom: 20px;
     font-size: 1.46rem;
+  }
+
+  .home-section .section-kicker {
+    margin-bottom: 13px;
+    font-size: 0.72rem;
   }
 
   .home-section h3 {
@@ -820,11 +850,11 @@ button:focus-visible {
     height: 88px;
   }
 
-  .profile__details h2 {
+  .profile__name {
     font-size: 1.34rem;
   }
 
-  .greedy-nav .visible-links li:first-child a {
+  .greedy-nav .visible-links li.masthead__menu-item--wordmark a {
     padding: 18px 0;
     font-size: 1.2rem;
   }

@@ -10,14 +10,19 @@ layout: compress
 </head>
 <body>
   {% include masthead.html %}
-  <div id="main" role="main" class="main-container">
+  {% comment %}
+    `main` is a real <main> element rather than a div with role="main"; the
+    `.page` class is kept for the vendored styles that still key off it. The
+    profile rail is complementary content, so it stays outside the landmark.
+  {% endcomment %}
+  <div class="main-container">
     <div class="shell">
       <aside class="rail">
         {% include author-profile.html %}
       </aside>
-      <article class="page content">
+      <main id="main" class="page content">
         {{ content }}
-      </article>
+      </main>
     </div>
   </div>
   {% include footer.html %}

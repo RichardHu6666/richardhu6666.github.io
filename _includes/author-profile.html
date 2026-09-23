@@ -19,7 +19,10 @@
   <img class="profile__avatar" src="{{ base_path }}/assets/images/{{ author.avatar }}" alt="Portrait of {{ author.name }}" width="168" height="168" fetchpriority="high">
 
   <div class="profile__details">
-    <h2 itemprop="name">{{ author.name }}</h2>
+    <!-- A p, not a heading: the page's single h1 is the name in the content
+         column and the section headings are the h2 kickers, so a heading here
+         would add the rail to the document outline and duplicate the name. -->
+    <p class="profile__name" itemprop="name">{{ author.name }}</p>
     {% if author.description.size > 0 %}<p class="profile__role">{{ author.description }}</p>{% endif %}
     {% if author.employer.size > 0 %}
       <p class="profile__affiliation" itemprop="affiliation">

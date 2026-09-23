@@ -7,7 +7,15 @@
 {% assign seo_url = seo_url | default: site.github.url %}
 
 {% if page.title %}
-  {% assign seo_title = page.title | append: " " | append: site.title_separator | append: " " | append: site.title %}
+  {% comment %}
+    Skip the "Page - Site" join when a page's title is the site title, which is
+    the case for the homepage. It rendered as "XiangyunHu - XiangyunHu".
+  {% endcomment %}
+  {% if page.title == site.title %}
+    {% assign seo_title = site.title %}
+  {% else %}
+    {% assign seo_title = page.title | append: " " | append: site.title_separator | append: " " | append: site.title %}
+  {% endif %}
 {% endif %}
 
 {% if seo_title %}
@@ -87,13 +95,36 @@
 {% endif %}
 
 {% if site.social %}
+  {% comment %}
+    The Person block. `sameAs` comes from site.social.links in _config.yml, and
+    is emitted only when that list actually has entries - it used to serialise
+    an empty value as a literal null. Everything else is quoted explicitly
+    rather than through jsonify, because jsonify silently swallows a value when
+    it is chained after `default` and the value is nil.
+  {% endcomment %}
+{% comment %}
+    JSON string escaping, for the cases where a value has to be embedded by
+    hand. (Liquid's jsonify is not dependable here: whether it quotes a plain
+    string differs between the Liquid gem and Jekyll's own filter, so the
+    templates do their own escaping and the gate can check the result.)
+  {% endcomment %}
+  {% assign seo_name = site.author.name | default: site.name | replace: '\', '\\' | replace: '"', '\"' %}
+  {% assign seo_job = site.author.description | replace: '\', '\\' | replace: '"', '\"' %}
+  {% assign seo_employer = site.author.employer | replace: '\', '\\' | replace: '"', '\"' %}
+  {% assign seo_self = seo_url | replace: '\', '\\' | replace: '"', '\"' %}
   <script type="application/ld+json">
     {
-      "@context" : "http://schema.org",
+      "@context" : "https://schema.org",
       "@type" : "{% if site.social.type %}{{ site.social.type }}{% else %}Person{% endif %}",
-      "name" : "{{ site.social.name | default: site.name }}",
-      "url" : {{ seo_url | jsonify }},
-      "sameAs" : {{ site.social.links | jsonify }}
+      "name" : "{{ seo_name }}",
+      "jobTitle" : "{{ seo_job }}",
+      "affiliation" : {
+        "@type" : "Organization",
+        "name" : "{{ seo_employer }}"
+      },
+      "url" : "{{ seo_self }}",
+      "sameAs" : [{% for link in site.social.links %}"{{ link | replace: '\', '\\' | replace: '"', '\"' }}"{% unless forloop.last %}, {% endunless %}{% endfor %}],
+      "knowsAbout" : [{% for topic in site.author_interests %}"{{ topic | replace: '\', '\\' | replace: '"', '\"' }}"{% unless forloop.last %}, {% endunless %}{% endfor %}]
     }
   </script>
 {% endif %}
@@ -116,32 +147,33 @@
 <meta property="og:locale" content="{{ site.locale | default: "en" }}">
 <meta property="og:site_name" content="{{ site.title }}"> 
 <meta property="og:title" content="{{ page.title | default: site.title | markdownify | strip_html | strip_newlines | escape_once }}">
+{% comment %}
+  og:type used to be emitted only for dated content, so the homepage had none.
+  Articles keep "article"; everything else is a "website", which is what the
+  scrapers expect to find.
+{% endcomment %}
 {% if page.date %}
   <meta property="og:type" content="article">
+{% else %}
+  <meta property="og:type" content="website">
 {% endif %}
-{% if page.excerpt %}
+{% comment %}
+  og:description previously required page.excerpt or site.og_description, and
+  the homepage has neither, so the card had no summary line. Fall back to the
+  computed description, which is what the meta description already uses.
+{% endcomment %}
+{% if seo_description %}
   <meta property="og:description" name="description" content="{{ seo_description }}">
-{% elsif site.og_description %}
-  <meta property="og:description" name="description" content="{{ site.og_description }}">
 {% endif %}
 {% if seo_url %}
   <meta property="og:url" content="{{ page.url | prepend: seo_url | replace: "/index.html", "/" }}">
 {% endif %}
 
-{% if site.og_image %}
-  <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
-      "@type": "Organization",
-      "url": {{ seo_url | jsonify }},
-      "logo": {{ site.og_image | prepend: "/images/" | prepend: base_path | jsonify }}
-    }
-  </script>
-{% endif %}
-
-{% if page.header.image %}
-  <meta property="og:image" content="{% if page.header.image contains "://" %}{{ page.header.image }}{% else %}{{ page.header.image | prepend: "/images/" | prepend: base_path }}{% endif %}">
-{% elsif page.header.overlay_image %}
-  <meta property="og:image" content="{% if page.header.overlay_image contains "://" %}{{ page.header.overlay_image }}{% else %}{{ page.header.overlay_image | prepend: "/images/" | prepend: base_path }}{% endif %}">
+{% comment %} Prefer an explicit page/overlay image, then the site og_image. {% endcomment %}
+{% assign og_image_path = page.header.image | default: page.header.overlay_image | default: site.og_image %}
+{% if og_image_path %}
+  <meta property="og:image" content="{% if og_image_path contains "://" %}{{ og_image_path }}{% else %}{{ og_image_path | prepend: "/assets/images/" | prepend: site.url }}{% endif %}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="{% if og_image_path contains "://" %}{{ og_image_path }}{% else %}{{ og_image_path | prepend: "/assets/images/" | prepend: site.url }}{% endif %}">
 {% endif %}
 <!-- end Open Graph protocol -->
