@@ -6,13 +6,20 @@
   {% assign author = site.author %}
 {% endif %}
 
+{% comment %}
+  Note on the `!= blank` tests below: in Liquid an empty string is truthy, so a
+  bare `{% if author.email %}` renders a link for every field that merely exists
+  in _config.yml. `blank` catches both empty strings and nulls, so a link only
+  appears once it has a real value.
+{% endcomment %}
+
 <div class="profile" itemscope itemtype="https://schema.org/Person">
   <img class="profile__avatar" src="{{ base_path }}/assets/images/{{ author.avatar }}" alt="Portrait of {{ author.name }}" width="168" height="168" fetchpriority="high">
 
   <div class="profile__details">
     <h2 itemprop="name">{{ author.name }}</h2>
-    {% if author.description %}<p class="profile__role">{{ author.description }}</p>{% endif %}
-    {% if author.employer %}<p class="profile__affiliation" itemprop="affiliation">{{ author.employer }}</p>{% endif %}
+    {% if author.description != blank %}<p class="profile__role">{{ author.description }}</p>{% endif %}
+    {% if author.employer != blank %}<p class="profile__affiliation" itemprop="affiliation">{{ author.employer }}</p>{% endif %}
 
     {% if site.author_interests %}
       <div class="profile__block">
@@ -20,18 +27,22 @@
         <p class="profile__interests">{{ site.author_interests | join: "<br>" }}</p>
       </div>
     {% endif %}
+    {% assign has_links = false %}
+    {% if author.cv != blank or author.email != blank or author.googlescholar != blank or author.github != blank or author.linkedin != blank or author.orcid != blank or author.arxiv != blank %}
+      {% assign has_links = true %}
+    {% endif %}
 
-    {% if author.cv or author.email or author.googlescholar or author.github or author.linkedin or author.orcid or author.arxiv or author.zhihu %}
+    {% if has_links %}
       <div class="profile__block">
         <p class="profile__label">Links</p>
         <ul class="profile__links">
-          {% if author.cv %}<li><a href="{{ base_path }}/{{ author.cv }}"><i class="fas fa-file-lines" aria-hidden="true"></i>Curriculum Vitae</a></li>{% endif %}
-          {% if author.email %}<li><a href="mailto:{{ author.email }}"><i class="fas fa-envelope" aria-hidden="true"></i>Email</a></li>{% endif %}
-          {% if author.googlescholar %}<li><a href="https://scholar.google.com/citations?user={{ author.googlescholar }}"><i class="ai ai-google-scholar" aria-hidden="true"></i>Google Scholar</a></li>{% endif %}
-          {% if author.github %}<li><a href="https://github.com/{{ author.github }}"><i class="fab fa-github" aria-hidden="true"></i>GitHub</a></li>{% endif %}
-          {% if author.linkedin %}<li><a href="https://www.linkedin.com/in/{{ author.linkedin }}"><i class="fab fa-linkedin" aria-hidden="true"></i>LinkedIn</a></li>{% endif %}
-          {% if author.orcid %}<li><a href="https://orcid.org/{{ author.orcid }}"><i class="ai ai-orcid" aria-hidden="true"></i>ORCID</a></li>{% endif %}
-          {% if author.arxiv %}<li><a href="https://arxiv.org/a/{{ author.arxiv }}"><i class="ai ai-arxiv" aria-hidden="true"></i>arXiv</a></li>{% endif %}
+          {% if author.cv != blank %}<li><a href="{{ base_path }}/{{ author.cv }}">Curriculum Vitae</a></li>{% endif %}
+          {% if author.email != blank %}<li><a href="mailto:{{ author.email }}">Email</a></li>{% endif %}
+          {% if author.googlescholar != blank %}<li><a href="https://scholar.google.com/citations?user={{ author.googlescholar }}">Google Scholar</a></li>{% endif %}
+          {% if author.github != blank %}<li><a href="https://github.com/{{ author.github }}">GitHub</a></li>{% endif %}
+          {% if author.linkedin != blank %}<li><a href="https://www.linkedin.com/in/{{ author.linkedin }}">LinkedIn</a></li>{% endif %}
+          {% if author.orcid != blank %}<li><a href="https://orcid.org/{{ author.orcid }}">ORCID</a></li>{% endif %}
+          {% if author.arxiv != blank %}<li><a href="https://arxiv.org/a/{{ author.arxiv }}">arXiv</a></li>{% endif %}
         </ul>
       </div>
     {% endif %}

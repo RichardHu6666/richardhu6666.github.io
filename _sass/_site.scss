@@ -385,39 +385,29 @@ button:focus-visible {
 }
 
 .profile__links li {
-  margin: 0;
+  margin: 0 0 6px;
 }
 
+.profile__links li:last-child {
+  margin-bottom: 0;
+}
+
+/* Text-only links: the free Font Awesome webfonts shipped here only cover
+   GitHub and LinkedIn, so icons would render as empty boxes for CV, email,
+   ORCID and arXiv. A quiet underline reads better and always renders. */
 .profile__links a {
   display: inline-block;
-  padding: 3px 0;
   color: var(--ink-soft);
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   text-decoration: none;
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 1px;
   transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
 }
 
 .profile__links a:hover {
   color: var(--accent);
   border-bottom-color: var(--accent);
-}
-
-.profile__links .fas,
-.profile__links .fab,
-.profile__links .ai {
-  width: 1.15em;
-  margin-right: 9px;
-  color: var(--ink-faint);
-  font-size: 0.92em;
-  text-align: center;
-  transition: color 0.2s var(--ease);
-}
-
-.profile__links a:hover .fas,
-.profile__links a:hover .fab,
-.profile__links a:hover .ai {
-  color: var(--accent);
 }
 
 
