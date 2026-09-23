@@ -4,35 +4,19 @@ The site is a single-page Jekyll adaptation of [Minimalist Academic Portfolio](h
 
 ## Update the site
 
-The site publishes two language versions of the same page:
-
-| URL | Source | Language |
-| --- | --- | --- |
-| `/` | `index.html` | English |
-| `/zh/` | `zh.md` | Chinese |
-
-The masthead carries a toggle between them. Section ids are identical on both
-versions, so the toggle drops the reader at the section they were reading.
-
-- Edit `index.html` and `zh.md` for the biography, research, projects,
-  publication status, and education. Keep both in step: they are separate files
-  with no shared content, so a change to one does not reach the other.
-- Edit `_data/ui-text.yml` for anything that is chrome rather than page content:
-  the navigation menu (`nav:`), the sidebar role and employer, the rail labels,
-  and the language toggle label. Each language has its own block, selected by
-  `page.lang` in the page's front matter.
-- Edit `_config.yml` for the author details shared by both versions: name,
-  `author_interests` / `author_interests_zh`, and the links (`author.email`,
-  `author.cv`, `author.googlescholar`, `author.github`, `author.linkedin`,
-  `author.orcid`, `author.arxiv`). A link only appears once its field has a
-  value; `author.cv` is a path relative to the site root.
+- Edit `index.html` for the biography, research, projects, publication status, and education.
+- Edit `_config.yml` for the author details shown in the sidebar: name, role
+  (`author.description`), affiliation, `author_interests`, and any links
+  (`author.email`, `author.cv`, `author.googlescholar`, `author.github`,
+  `author.linkedin`, `author.orcid`, `author.arxiv`). A link only appears once
+  its field has a value; `author.cv` is a path relative to the site root.
 - Edit `_sass/_site.scss` for the local visual layer. The upstream Sass is
   otherwise unchanged.
 - `assets/js/site.js` holds the only page behaviour: collapsing the navigation
   when it stops fitting, and the scrolled masthead state.
 - The optimized profile image is `assets/images/profile.jpg` (square, 900×900).
 - Institution marks live in `assets/images/institutions/` and are referenced
-  from two places: the education entries in both pages, and the sidebar via
+  from two places: the education entries in `index.html`, and the sidebar via
   `author.affiliation_logo` in `_config.yml`. Both marks are official artwork
   taken from the institutions and used to identify the affiliation:
 
@@ -90,13 +74,14 @@ bundle exec jekyll serve
 Run these before pushing.
 
 ```sh
-ruby .preview/liquidcheck.rb      # templates, guards, head metadata, both languages
-ruby .preview/datacheck.rb        # ui-text.yml and _config.yml consistency
+ruby .preview/liquidcheck.rb      # templates, sidebar guards, head metadata
 python .preview/contrast.py       # WCAG AA contrast for the ink palette
 ```
 
 `liquidcheck.rb` parses every template with the same Liquid gem the Pages build
-uses and renders three includes against the real `_config.yml`. It catches:
+uses and renders two includes against the real `_config.yml`. It catches three
+things that would otherwise only surface in a failed Pages run or on the live
+site:
 
 - A Liquid syntax error in any template. Liquid has no nested tags: a
   `{% comment %}` block containing another tag breaks the build.
@@ -106,13 +91,6 @@ uses and renders three includes against the real `_config.yml`. It catches:
 - A head that would produce a poor shared link: missing `og:type`,
   `og:description` or `og:image`, a self-repeating `<title>`, or an ld+json
   block that is not valid JSON (including a `"sameAs": null`).
-- A language version whose masthead lost its navigation, its wordmark target or
-  its toggle. These render as an empty menu rather than an error, so they are
-  asserted rather than eyeballed.
-
-`datacheck.rb` checks that both language blocks in `ui-text.yml` exist, have a
-nav list of the right shape, and point at the same anchor ids — which is what
-lets the toggle preserve the reader's position.
 
 `contrast.py` reads the palette straight out of `_sass/_site.scss` so it cannot
 drift from what ships, and reports the darkest value each token would need.

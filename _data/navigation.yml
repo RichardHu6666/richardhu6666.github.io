@@ -1,16 +1,18 @@
-# SUPERSEDED - not read by any template.
+# The following is the order of the links in the header of the website.
 #
-# The masthead used to read `site.data.navigation.main` from this file. It now
-# reads `site.data.ui-text[page.lang].nav` so that a language can be selected
-# with a single lookup and no data file needs a dot in its name (Jekyll
-# documents the basename as the key, and a dotted filename's key is
-# unspecified, so `navigation.zh.yml` was a risk not worth taking).
+# Changing the order here will adjust the order and you can also add additional
+# links. Removing a link prevents it from showing in the header, but does not
+# prevent it from being included in the site.
 #
-# The English navigation now lives in _data/ui-text.yml under `en: nav:`.
-# This file is kept only so the structure is recognisable to anyone arriving
-# from upstream Academic Pages. To change the menu, edit _data/ui-text.yml.
-#
-# The CV note that used to sit here is also stale: there is no CV page, and
-# `author.cv` in _config.yml points at a PDF instead.
+# NOTE that only one of the CV options should be selected, the first is for the
+#      Markdown formatted page while the second is generated using JSON.
 
-main: []
+main:
+  - title: "Research"
+    url: /#research
+  - title: "Projects"
+    url: /#work
+  - title: "Publications"
+    url: /#publications
+  - title: "Education"
+    url: /#education

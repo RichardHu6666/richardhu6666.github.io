@@ -288,40 +288,6 @@ button:focus-visible {
   display: none;
 }
 
-/* Language toggle. Sits at the end of the same row and is deliberately not one
-   more tab: it is marked with a hairline rule, and takes the accent colour on
-   hover so it reads as a switch rather than a destination. The Chinese label
-   needs the body face and normal tracking - the uppercase, letterspaced
-   treatment applied to nav links suits latin text only. */
-.greedy-nav .masthead__menu-item--lang {
-  margin-left: 14px;
-}
-
-.greedy-nav .masthead__menu-item--lang a {
-  padding: 5px 11px;
-  border: 1px solid var(--rule);
-  border-radius: 999px;
-  color: var(--ink-muted);
-  font-family: var(--font-body);
-  font-size: 0.73rem;
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: 1.2;
-  text-transform: none;
-  transition: color 0.2s var(--ease), border-color 0.2s var(--ease),
-              background-color 0.2s var(--ease);
-}
-
-.greedy-nav .masthead__menu-item--lang a::before {
-  display: none; /* no underline sweep on a pill */
-}
-
-.greedy-nav .masthead__menu-item--lang a:hover {
-  border-color: var(--accent);
-  background: #f2f7f9;
-  color: var(--accent);
-}
-
 
 /* ==========================================================================
    5. PAGE SHELL
@@ -554,40 +520,33 @@ button:focus-visible {
   text-transform: uppercase;
 }
 
+.native-name {
+  color: var(--ink-faint);
+  font-family: var(--font-body);
+  font-size: 0.38em;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
 /* The display name is a <p>, not a heading: the h1 above it is for screen
    readers, and this is the visual hero. `aria-hidden` keeps the name from
-   being announced twice. Each language version leads with its own script and
-   shows the other name alongside, spaced by column-gap so the two never touch.
-
-   Both names share one fluid size rather than a fixed primary and an em-scaled
-   secondary: with the primary in CJK the two scripts have very different
-   widths, and a ratio that suited the Latin name overflowed the column. The
-   measure cap meant for body text must not apply here, or the line wraps. */
+   being announced twice. It sits on one line with the Chinese name, spaced by
+   column-gap so the two never touch; the measure cap meant for body text must
+   not apply, or it would squeeze the line into a wrap. */
 .home-section .display-name {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  column-gap: 0.42em;
+  column-gap: 0.5em;
   max-width: none;
   margin: 0 0 22px;
   font-family: var(--font-display);
-  font-size: clamp(1.85rem, 1.15rem + 2.6vw, 2.95rem);
+  font-size: 2.95rem;
   font-weight: 600;
-  line-height: 1.15;
+  line-height: 1.1;
   letter-spacing: -0.005em;
   color: var(--ink);
-}
-
-.home-section .display-name__primary {
-  white-space: nowrap;
-}
-
-.native-name {
-  color: var(--ink-faint);
-  font-family: var(--font-body);
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
 }
 
 /* Available to assistive technology, out of the visual flow. */
@@ -862,7 +821,10 @@ button:focus-visible {
     margin-bottom: 40px;
   }
 
-  /* The display name sizes itself with clamp(); no breakpoint override. */
+  /* Scoped to .display-name so the Chinese name keeps its em ratio. */
+  .home-section .display-name {
+    font-size: 2.15rem;
+  }
 
   /* `.home-section h2` above matches this too, so the label needs its own
      size here; source order alone no longer decides inside the media query. */
