@@ -21,7 +21,12 @@
   <div class="profile__details">
     <h2 itemprop="name">{{ author.name }}</h2>
     {% if author.description.size > 0 %}<p class="profile__role">{{ author.description }}</p>{% endif %}
-    {% if author.employer.size > 0 %}<p class="profile__affiliation" itemprop="affiliation">{{ author.employer }}</p>{% endif %}
+    {% if author.employer.size > 0 %}
+      <p class="profile__affiliation" itemprop="affiliation">
+        {%- if author.affiliation_logo.size > 0 %}<img class="profile__affiliation-mark" src="{{ base_path }}/assets/images/institutions/{{ author.affiliation_logo }}" alt="" width="24" height="24" loading="lazy" decoding="async">{% endif -%}
+        <span>{{ author.employer }}</span>
+      </p>
+    {% endif %}
 
     {% if site.author_interests %}
       <div class="profile__block">

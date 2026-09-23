@@ -15,6 +15,19 @@ The site is a single-page Jekyll adaptation of [Minimalist Academic Portfolio](h
 - `assets/js/site.js` holds the only page behaviour: collapsing the navigation
   when it stops fitting, and the scrolled masthead state.
 - The optimized profile image is `assets/images/profile.jpg` (square, 900×900).
+- Institution marks live in `assets/images/institutions/` and are referenced
+  from two places: the education entries in `index.html`, and the sidebar via
+  `author.affiliation_logo` in `_config.yml`. Both marks are official artwork
+  taken from the institutions and used to identify the affiliation:
+
+  | File | Institution | Source |
+  | --- | --- | --- |
+  | `casia.png` | Institute of Automation, Chinese Academy of Sciences | [ia.ac.cn 形象标识](http://www.ia.ac.cn/gkjj/xxbs/) |
+  | `seu.png` | Southeast University | [Southeast University seal](https://www.urongda.com/logos/4132010286) |
+
+  They are trademarks of their institutions and are not covered by this
+  repository's MIT licence. Regenerate the web-sized versions from the
+  originals with `python .preview/prepare-logos.py`.
 - Headings use EB Garamond and body text Source Sans 3, both self-hosted as
   Latin-subset `woff2` files in `assets/fonts/`. No third-party font request is
   made at runtime.

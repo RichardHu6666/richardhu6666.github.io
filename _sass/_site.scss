@@ -352,10 +352,21 @@ button:focus-visible {
 }
 
 .profile__affiliation {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
   margin-top: 10px !important;
   color: var(--ink-muted);
   font-size: 0.875rem !important;
   line-height: 1.55;
+}
+
+.profile__affiliation-mark {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  margin-top: 1px;
+  object-fit: contain;
 }
 
 .profile__block {
@@ -570,44 +581,49 @@ button:focus-visible {
 
 .education-entry {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 2px 28px;
-  align-items: baseline;
-  padding-left: 26px;
-  border-left: 2px solid var(--rule);
-  transition: border-color 0.3s var(--ease);
-}
-
-.education-entry:hover {
-  border-left-color: var(--accent-soft);
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 0 20px;
+  align-items: start;
 }
 
 .education-entry + .education-entry {
   margin-top: 30px;
 }
 
-.education-entry h3 {
+/* Institution mark. Both official logos are designed for white backgrounds,
+   so they sit directly on the page rather than inside a tinted chip. */
+.education-entry__mark {
   grid-column: 1;
+  grid-row: 1;
+  width: 44px;
+  height: 44px;
+  margin-top: 2px;
+  object-fit: contain;
+}
+
+.education-entry__body {
+  grid-column: 2;
+  min-width: 0;
+}
+
+.education-entry h3 {
   margin: 0 0 6px;
 }
 
 .education-entry p {
-  grid-column: 1;
   margin: 0;
   color: var(--ink-muted);
   font-size: 0.94rem;
   line-height: 1.65;
 }
 
-.education-entry .education-entry__when {
-  grid-column: 2;
-  grid-row: 1;
+.education-entry__when {
+  margin: 0 0 7px !important;
   color: var(--ink-faint);
-  font-size: 0.7rem;
+  font-size: 0.7rem !important;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  white-space: nowrap;
 }
 
 
@@ -735,8 +751,7 @@ button:focus-visible {
     font-size: 1.09rem;
   }
 
-  .research-entry,
-  .education-entry {
+  .research-entry {
     padding-left: 18px;
   }
 
@@ -744,15 +759,15 @@ button:focus-visible {
     margin-top: 34px;
   }
 
-  /* No room for a second column — the date moves under the heading. */
+  /* Keep the mark beside the text; it stays legible at this width. */
   .education-entry {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: 36px minmax(0, 1fr);
+    gap: 0 14px;
   }
 
-  .education-entry .education-entry__when {
-    grid-column: 1;
-    grid-row: auto;
-    margin-bottom: 6px;
+  .education-entry__mark {
+    width: 36px;
+    height: 36px;
   }
 
   .profile {
