@@ -29,7 +29,7 @@ description: "东南大学智能感知工程本科生，已获推免资格，202
     <p>主导研发感知—决策—控制自动驾驶全链路方案。通过多分辨率处理与在线参数更新优化视差匹配表现，通过混合专家模型与扩散样本生成优化长尾场景的决策表现。</p>
     <p>优秀结题（前 20%），个人工作量第一，产出<strong>两项授权发明专利</strong>（第一、第二发明人）。</p>
     <figure class="research-figure">
-      <img src="assets/images/research/auto-driving.jpg" alt="自动驾驶项目的系统架构图：多分辨率端到端视差匹配网络、异步在线参数自适应更新机制、安全审查机制、SAC 与扩散混合专家模型、Jetson 端侧部署，以及扩散长尾数据增强。" width="1400" height="629" loading="lazy" decoding="async">
+      <img src="/assets/images/research/auto-driving.jpg" alt="自动驾驶项目的系统架构图：多分辨率端到端视差匹配网络、异步在线参数自适应更新机制、安全审查机制、SAC 与扩散混合专家模型、Jetson 端侧部署，以及扩散长尾数据增强。" width="1400" height="629" loading="lazy" decoding="async">
       <figcaption>方案总览：多分辨率立体匹配与在线参数更新、安全审查、混合专家决策模型、扩散长尾数据增强，以及 Jetson 端侧部署。</figcaption>
     </figure>
   </article>
@@ -40,7 +40,7 @@ description: "东南大学智能感知工程本科生，已获推免资格，202
     <p>提出基于 Mass-Spring 与有限差分法的热—力双向反馈模型，有效模拟三维打印过程中的热收缩与翘曲形变。与深圳创想三维科技股份有限公司合作交付，仿真测试集平均误差 <strong>0.04 mm</strong>。</p>
     <p>项目唯一完成人。</p>
     <figure class="research-figure">
-      <img src="assets/images/research/fdm-warping.jpg" alt="FDM 三维打印机正在打印一个红色小件，喷头位于成型平台上方。" width="1400" height="787" loading="lazy" decoding="async">
+      <img src="/assets/images/research/fdm-warping.jpg" alt="FDM 三维打印机正在打印一个红色小件，喷头位于成型平台上方。" width="1400" height="787" loading="lazy" decoding="async">
       <figcaption>FDM 三维打印，即热—力模型所仿真的工艺过程。</figcaption>
     </figure>
   </article>
@@ -59,7 +59,7 @@ description: "东南大学智能感知工程本科生，已获推免资格，202
     <h3>The Robotic Era of Gynecologic Surgery: A Comprehensive Review and the Next-Decade Outlook</h3>
     <p>已投稿至 <em>Intelligent Medicine</em>（JCR Q1，IF 6.9）。提出"临床需求—工程设计"双向映射框架，打破传统综述对机器人系统的黑盒化处理，并给出妇科手术机器人的设计与未来发展蓝图。</p>
     <figure class="research-figure">
-      <img src="assets/images/research/gyn-surgery-survey.jpg" alt="综述组织框架图：左侧为需求与约束，中部为机器人设计与人机交互及工作流，右侧为临床应用，三者之间以带标注的映射箭头连接。" width="1400" height="764" loading="lazy" decoding="async">
+      <img src="/assets/images/research/gyn-surgery-survey.jpg" alt="综述组织框架图：左侧为需求与约束，中部为机器人设计与人机交互及工作流，右侧为临床应用，三者之间以带标注的映射箭头连接。" width="1400" height="764" loading="lazy" decoding="async">
       <figcaption>综述的组织框架：由临床需求经机器人设计与人机交互，映射到临床应用。</figcaption>
     </figure>
   </article>
@@ -68,7 +68,7 @@ description: "东南大学智能感知工程本科生，已获推免资格，202
 <section id="education" class="home-section">
   <h2 class="section-kicker">04 / 教育经历</h2>
   <article class="education-entry" itemscope itemtype="https://schema.org/CollegeOrUniversity">
-    <img class="education-entry__mark" src="assets/images/institutions/seu.png" alt="" width="44" height="44" loading="lazy" decoding="async">
+    <img class="education-entry__mark" src="/assets/images/institutions/seu.png" alt="" width="44" height="44" loading="lazy" decoding="async">
     <div class="education-entry__body">
       <p class="education-entry__when">2023 – 2027（预计）</p>
       <h3 itemprop="name">东南大学</h3>
@@ -76,7 +76,7 @@ description: "东南大学智能感知工程本科生，已获推免资格，202
     </div>
   </article>
   <article class="education-entry" itemscope itemtype="https://schema.org/EducationalOrganization">
-    <img class="education-entry__mark" src="assets/images/institutions/casia.png" alt="" width="44" height="44" loading="lazy" decoding="async">
+    <img class="education-entry__mark" src="/assets/images/institutions/casia.png" alt="" width="44" height="44" loading="lazy" decoding="async">
     <div class="education-entry__body">
       <p class="education-entry__when">2027 年起</p>
       <h3 itemprop="name">中国科学院自动化研究所</h3>
