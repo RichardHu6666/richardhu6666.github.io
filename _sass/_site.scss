@@ -83,9 +83,16 @@
   --accent-soft:  #2f7f93;
 
   /* Rhythm --------------------------------------------------------------- */
-  --shell-max:    1240px;
-  --sidebar-w:    312px;
-  --measure:      68ch;
+  --shell-max:    1280px;
+  /* Side margin of the shell. Grows with the viewport so the content band does
+     not sit marooned in the middle of a wide window. */
+  --shell-pad:    40px;
+  --sidebar-w:    300px;
+  /* Line length for running text. Expressed in px rather than `ch` because the
+     `ch` unit is the width of "0", which in Source Sans 3 is narrow — 68ch
+     measured only ~489px and left a wide void to the right of every line.
+     680px runs about 67 characters, which is mid-range for comfortable reading. */
+  --measure:      680px;
   --masthead-h:   64px;
 
   --ease:         cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -151,7 +158,8 @@ button:focus-visible {
 .masthead__inner-wrap {
   max-width: var(--shell-max);
   margin: 0 auto;
-  padding: 0 28px;
+  /* Matches the shell so the wordmark lines up with the rail and content. */
+  padding: 0 var(--shell-pad);
   font-family: var(--font-body);
 }
 
@@ -284,15 +292,22 @@ button:focus-visible {
 .shell {
   display: grid;
   grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
-  gap: 0 68px;
+  gap: 0 64px;
   align-items: start;
-  width: min(100% - 56px, var(--shell-max));
+  width: min(100% - (var(--shell-pad) * 2), var(--shell-max));
   margin: 0 auto;
   padding: 58px 0 0;
 }
 
 .rail {
   min-width: 0;
+  /* The rail is short and the content is long, so without this the right-hand
+     side of the page is empty for most of the scroll. The offset lands the rail
+     just below the masthead rather than a masthead-and-a-half down. */
+  position: -webkit-sticky;
+  position: sticky;
+  top: calc(var(--masthead-h) + 20px);
+  align-self: start;
 }
 
 .content {
@@ -636,7 +651,7 @@ button:focus-visible {
   justify-content: space-between;
   align-items: center;
   gap: 18px;
-  width: min(100% - 56px, var(--shell-max));
+  width: min(100% - (var(--shell-pad) * 2), var(--shell-max));
   max-width: none;
   margin: 0 auto;
   padding: 30px 0 46px;
@@ -665,17 +680,20 @@ button:focus-visible {
 /* Tablet and below: the rail folds above the content as a horizontal strip. */
 @media (max-width: 1024px) {
   :root {
-    --measure: 74ch;
+    --shell-pad: 28px;
+    /* One full-width column: the measure can open up, it no longer competes
+       with the rail for horizontal space. */
+    --measure: 760px;
   }
 
   .shell {
     grid-template-columns: minmax(0, 1fr);
     gap: 44px;
-    width: min(100% - 48px, var(--shell-max));
     padding-top: 44px;
   }
 
   .rail {
+    position: static;
     padding-bottom: 40px;
     border-bottom: 1px solid var(--rule-soft);
   }
@@ -709,22 +727,22 @@ button:focus-visible {
   }
 
   .masthead__inner-wrap {
-    padding: 0 24px;
-  }
-
-  .page-footer {
-    width: min(100% - 48px, var(--shell-max));
+    /* No override needed; --shell-pad already narrows at this breakpoint. */
   }
 }
 
 /* Phones. */
 @media (max-width: 640px) {
+  :root {
+    --shell-pad: 18px;
+    --measure: 100%;
+  }
+
   body {
     font-size: 16px;
   }
 
   .shell {
-    width: calc(100% - 36px);
     gap: 36px;
     padding-top: 34px;
   }
@@ -784,10 +802,6 @@ button:focus-visible {
     font-size: 1.34rem;
   }
 
-  .masthead__inner-wrap {
-    padding: 0 18px;
-  }
-
   .greedy-nav .visible-links li:first-child a {
     padding: 18px 0;
     font-size: 1.2rem;
@@ -795,7 +809,6 @@ button:focus-visible {
 
   .page-footer {
     display: block;
-    width: calc(100% - 36px);
     padding: 26px 0 38px;
   }
 
