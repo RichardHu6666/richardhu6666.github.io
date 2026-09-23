@@ -1,4 +1,4 @@
-# Richard Hu's research homepage
+# XiangyunHu's research homepage
 
 The site is a single-page Jekyll adaptation of [Minimalist Academic Portfolio](https://github.com/minimalacademicsite/minimalacademicsite.github.io) (MIT), which derives from Academic Pages and Minimal Mistakes. Its upstream Sass foundation is vendored in `_sass/` at commit `74e6a2788d94971b8ff6cbcb9ff7a89e764ee878`; see `LICENSE`.
 

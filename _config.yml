@@ -9,9 +9,9 @@
 # Basic Site Settings
 locale                   : "en-US"
 site_theme               : "default"
-title                    : "Richard Hu"
+title                    : "XiangyunHu"
 title_separator          : "-"
-name                     : &name "Richard Hu"
+name                     : &name "XiangyunHu"
 description              : &description "PhD student at the Institute of Automation, Chinese Academy of Sciences. Research interests in visual intelligence and multimodal learning."
 url                      : "https://xiangyunhu.github.io"
 baseurl                  : "" 
@@ -23,7 +23,7 @@ repository               : "XiangyunHu/XiangyunHu.github.io"
 author:
   # Biographic information
   avatar           : "profile.jpg"
-  name             : "Richard Hu"
+  name             : "XiangyunHu"
   description      : "PhD Student"
   pronouns         : ""
   bio              : "Research interests in visual intelligence and multimodal learning."

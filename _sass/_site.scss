@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SITE — local visual layer for Richard Hu's homepage
+   SITE — local visual layer for XiangyunHu's homepage
    --------------------------------------------------------------------------
    This is the only stylesheet in the project that carries site-specific
    design decisions. It is imported last (see assets/css/main.scss) so it
@@ -513,13 +513,29 @@ button:focus-visible {
 .native-name {
   color: var(--ink-faint);
   font-family: var(--font-body);
-  font-size: 0.42em;
+  font-size: 0.38em;
   font-weight: 400;
   letter-spacing: 0.04em;
   white-space: nowrap;
 }
 
-.lead {
+/* The display name and the Chinese name sit on one line, spaced by column-gap.
+   The h1 must be free to span the full column: it is a flex container, so it
+   shrink-wraps its content, and the measure cap meant for body text would
+   otherwise squeeze it narrow enough to wrap. Wrapping is still allowed for
+   very narrow viewports, rather than nowrap, to avoid overflow. */
+.home-section h1 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.5em;
+  max-width: none;
+}
+
+.home-section h1 .display-name {
+  font-size: 2.95rem;
+  line-height: 1.1;
+}.lead {
   color: var(--ink-soft);
   font-size: 1.19rem;
   line-height: 1.78;
@@ -752,7 +768,8 @@ button:focus-visible {
     margin-bottom: 40px;
   }
 
-  .home-section h1 {
+  /* Scoped to .display-name so the Chinese name keeps its em ratio. */
+  .home-section h1 .display-name {
     font-size: 2.15rem;
   }
 

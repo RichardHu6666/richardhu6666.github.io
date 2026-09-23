@@ -337,10 +337,11 @@
   max-width: 100% !important;
 }
 
-.page {
-  width: 90% !important; /* Tells the main content to take up 75% of the screen, leaving 25% for the sidebar */
-  padding-right: 20px !important;
-}
+/* The content column's width is owned by the .shell grid in _sass/_site.scss.
+   Two hacks used to sit here - `.page { width: 90% !important; padding-right:
+   20px !important; }` - written for the earlier float layout. They only served
+   to squeeze the column (402px of a 447px grid track), which wrapped the name
+   heading on one line and pushed the Chinese name onto the next. Removed. */
 
 /* Kill the old float behavior */
 .sidebar {
