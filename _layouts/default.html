@@ -2,8 +2,16 @@
 layout: compress
 ---
 {% include base_path %}
+{% comment %}
+  <html lang> follows the page's language, not the site locale: the site locale
+  is en-US, which would tag the Chinese page as English. The value comes from
+  each language block in _data/ui-text.yml so it stays with the rest of the
+  per-language chrome.
+{% endcomment %}
+{% assign page_lang = page.lang | default: "en" %}
+{% assign html_lang = site.data.ui-text[page_lang].html_lang | default: "en" %}
 <!doctype html>
-<html lang="{{ site.locale | slice: 0,2 }}" class="no-js">
+<html lang="{{ html_lang }}" class="no-js">
 <head>
   {% include head.html %}
   {% include head/custom.html %}

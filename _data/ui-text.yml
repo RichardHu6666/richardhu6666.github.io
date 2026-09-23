@@ -64,6 +64,9 @@ en: &DEFAULT_EN
   portrait_alt               : "Portrait"
   lang_switch                : "中文"
   lang_switch_title          : "切换到中文"
+  # Value for <html lang>; the page locale is "en-US" at site level, which would
+  # otherwise tag the Chinese page as English.
+  html_lang                  : "en"
 en-US:
   <<: *DEFAULT_EN
 en-CA:
@@ -350,6 +353,7 @@ zh: &DEFAULT_ZH
   portrait_alt               : "肖像"
   lang_switch                : "EN"
   lang_switch_title          : "Switch to English"
+  html_lang                  : "zh-Hans"
 zh-CN:
   <<: *DEFAULT_ZH
 
