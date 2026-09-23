@@ -91,6 +91,11 @@ author_interests:
   - "Visual intelligence"
   - "Multimodal learning"
 
+# Shown instead of the list above on the Chinese page (zh.md).
+author_interests_zh:
+  - "视觉智能"
+  - "多模态学习"
+
 # Publication Category - The following the list of publication categories and their headings
 publication_category:
   books:
