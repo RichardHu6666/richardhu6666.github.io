@@ -1,0 +1,19 @@
+{% include base_path %}
+
+{% if page.author and site.data.authors[page.author] %}
+  {% assign author = site.data.authors[page.author] %}
+{% else %}
+  {% assign author = site.author %}
+{% endif %}
+
+<div class="profile" itemscope itemtype="https://schema.org/Person">
+  <img class="profile__avatar" src="{{ base_path }}/assets/images/{{ author.avatar }}" alt="Portrait of {{ author.name }}" width="224" height="224" fetchpriority="high">
+  <div class="profile__details">
+    <h2 itemprop="name">{{ author.name }}</h2>
+    <p class="profile__role">PhD student</p>
+    <p class="profile__affiliation">{{ author.employer }}</p>
+    <div class="profile__rule" aria-hidden="true"></div>
+    <p class="profile__label">Research interests</p>
+    <p class="profile__interests">Visual intelligence<br>Multimodal learning</p>
+  </div>
+</div>
