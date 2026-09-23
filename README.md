@@ -44,9 +44,29 @@ bundle install
 bundle exec jekyll serve
 ```
 
-If the full Ruby toolchain is unavailable, `.preview/` contains a development-only
-harness that compiles `assets/css/main.scss` through `dart-sass` and writes a
-static page mirroring the Jekyll output:
+### Checks
+
+Run this before pushing. It parses every template with the same Liquid gem the
+Pages build uses and renders the sidebar against the real `_config.yml`:
+
+```sh
+ruby .preview/liquidcheck.rb
+```
+
+It catches two things that are otherwise only visible in a failed Pages run or
+on the live site:
+
+- A Liquid syntax error in any template. Note that Liquid has no nested tags: a
+  `{% comment %}` block containing another tag breaks the build.
+- Sidebar links rendering for author fields that are present but empty. Liquid
+  treats an empty string as truthy, and neither `!= blank` nor `strip != empty`
+  filters it out — the guard used here is `size > 0`.
+
+### Preview without Ruby
+
+`.preview/` also holds a development-only harness that compiles
+`assets/css/main.scss` through `dart-sass` and writes a static page mirroring the
+Jekyll output:
 
 ```sh
 npm install --no-save sass
