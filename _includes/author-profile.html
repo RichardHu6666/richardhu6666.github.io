@@ -15,38 +15,28 @@
   break parsing and fail the Pages build.
 {% endcomment %}
 
-{% comment %}
-  The rail is chrome, not page content, so it takes its wording from
-  _data/ui-text.yml rather than from the page body.
-{% endcomment %}
-{% assign page_lang = page.lang | default: "en" %}
-{% assign ui = site.data.ui-text[page_lang] %}
-
 <div class="profile" itemscope itemtype="https://schema.org/Person">
-  <img class="profile__avatar" src="{{ base_path }}/assets/images/{{ author.avatar }}" alt="{{ ui.portrait_alt | default: 'Portrait' }} — {{ author.name }}" width="168" height="168" fetchpriority="high">
+  <img class="profile__avatar" src="{{ base_path }}/assets/images/{{ author.avatar }}" alt="Portrait of {{ author.name }}" width="168" height="168" fetchpriority="high">
 
   <div class="profile__details">
     <!-- A p, not a heading: the page's single h1 is the name in the content
          column and the section headings are the h2 kickers, so a heading here
          would add the rail to the document outline and duplicate the name. -->
     <p class="profile__name" itemprop="name">{{ author.name }}</p>
-    {% if author.description.size > 0 %}<p class="profile__role">{{ ui.role | default: author.description }}</p>{% endif %}
+    {% if author.description.size > 0 %}<p class="profile__role">{{ author.description }}</p>{% endif %}
     {% if author.employer.size > 0 %}
       <p class="profile__affiliation" itemprop="affiliation">
         {%- if author.affiliation_logo.size > 0 %}<img class="profile__affiliation-mark" src="{{ base_path }}/assets/images/institutions/{{ author.affiliation_logo }}" alt="" width="24" height="24" loading="lazy" decoding="async">{% endif -%}
-        <span>{{ ui.employer | default: author.employer }}</span>
+        <span>{{ author.employer }}</span>
       </p>
     {% endif %}
 
-    {% assign interests = site.author_interests %}
-    {% if page_lang == "zh" and site.author_interests_zh %}{% assign interests = site.author_interests_zh %}{% endif %}
-    {% if interests %}
+    {% if site.author_interests %}
       <div class="profile__block">
-        <p class="profile__label">{{ ui.interests_label | default: "Research interests" }}</p>
-        <p class="profile__interests">{{ interests | join: "<br>" }}</p>
+        <p class="profile__label">Research interests</p>
+        <p class="profile__interests">{{ site.author_interests | join: "<br>" }}</p>
       </div>
     {% endif %}
-
     {% assign has_links = false %}
     {% if author.cv.size > 0 or author.email.size > 0 or author.googlescholar.size > 0 or author.github.size > 0 or author.linkedin.size > 0 or author.orcid.size > 0 or author.arxiv.size > 0 %}
       {% assign has_links = true %}
@@ -54,11 +44,11 @@
 
     {% if has_links %}
       <div class="profile__block">
-        <p class="profile__label">{{ ui.links_label | default: "Links" }}</p>
+        <p class="profile__label">Links</p>
         <ul class="profile__links">
-          {% if author.cv.size > 0 %}<li><a href="{{ base_path }}/{{ author.cv }}">{{ ui.cv_label | default: "Curriculum Vitae" }}</a></li>{% endif %}
-          {% if author.email.size > 0 %}<li><a href="mailto:{{ author.email }}">{{ ui.email_label | default: "Email" }}</a></li>{% endif %}
-          {% if author.googlescholar.size > 0 %}<li><a href="https://scholar.google.com/citations?user={{ author.googlescholar }}">{{ ui.scholar_label | default: "Google Scholar" }}</a></li>{% endif %}
+          {% if author.cv.size > 0 %}<li><a href="{{ base_path }}/{{ author.cv }}">Curriculum Vitae</a></li>{% endif %}
+          {% if author.email.size > 0 %}<li><a href="mailto:{{ author.email }}">Email</a></li>{% endif %}
+          {% if author.googlescholar.size > 0 %}<li><a href="https://scholar.google.com/citations?user={{ author.googlescholar }}">Google Scholar</a></li>{% endif %}
           {% if author.github.size > 0 %}<li><a href="https://github.com/{{ author.github }}">GitHub</a></li>{% endif %}
           {% if author.linkedin.size > 0 %}<li><a href="https://www.linkedin.com/in/{{ author.linkedin }}">LinkedIn</a></li>{% endif %}
           {% if author.orcid.size > 0 %}<li><a href="https://orcid.org/{{ author.orcid }}">ORCID</a></li>{% endif %}
