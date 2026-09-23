@@ -7,13 +7,33 @@
 {% endif %}
 
 <div class="profile" itemscope itemtype="https://schema.org/Person">
-  <img class="profile__avatar" src="{{ base_path }}/assets/images/{{ author.avatar }}" alt="Portrait of {{ author.name }}" width="224" height="224" fetchpriority="high">
+  <img class="profile__avatar" src="{{ base_path }}/assets/images/{{ author.avatar }}" alt="Portrait of {{ author.name }}" width="168" height="168" fetchpriority="high">
+
   <div class="profile__details">
     <h2 itemprop="name">{{ author.name }}</h2>
-    <p class="profile__role">PhD student</p>
-    <p class="profile__affiliation">{{ author.employer }}</p>
-    <div class="profile__rule" aria-hidden="true"></div>
-    <p class="profile__label">Research interests</p>
-    <p class="profile__interests">Visual intelligence<br>Multimodal learning</p>
+    {% if author.description %}<p class="profile__role">{{ author.description }}</p>{% endif %}
+    {% if author.employer %}<p class="profile__affiliation" itemprop="affiliation">{{ author.employer }}</p>{% endif %}
+
+    {% if site.author_interests %}
+      <div class="profile__block">
+        <p class="profile__label">Research interests</p>
+        <p class="profile__interests">{{ site.author_interests | join: "<br>" }}</p>
+      </div>
+    {% endif %}
+
+    {% if author.cv or author.email or author.googlescholar or author.github or author.linkedin or author.orcid or author.arxiv or author.zhihu %}
+      <div class="profile__block">
+        <p class="profile__label">Links</p>
+        <ul class="profile__links">
+          {% if author.cv %}<li><a href="{{ base_path }}/{{ author.cv }}"><i class="fas fa-file-lines" aria-hidden="true"></i>Curriculum Vitae</a></li>{% endif %}
+          {% if author.email %}<li><a href="mailto:{{ author.email }}"><i class="fas fa-envelope" aria-hidden="true"></i>Email</a></li>{% endif %}
+          {% if author.googlescholar %}<li><a href="https://scholar.google.com/citations?user={{ author.googlescholar }}"><i class="ai ai-google-scholar" aria-hidden="true"></i>Google Scholar</a></li>{% endif %}
+          {% if author.github %}<li><a href="https://github.com/{{ author.github }}"><i class="fab fa-github" aria-hidden="true"></i>GitHub</a></li>{% endif %}
+          {% if author.linkedin %}<li><a href="https://www.linkedin.com/in/{{ author.linkedin }}"><i class="fab fa-linkedin" aria-hidden="true"></i>LinkedIn</a></li>{% endif %}
+          {% if author.orcid %}<li><a href="https://orcid.org/{{ author.orcid }}"><i class="ai ai-orcid" aria-hidden="true"></i>ORCID</a></li>{% endif %}
+          {% if author.arxiv %}<li><a href="https://arxiv.org/a/{{ author.arxiv }}"><i class="ai ai-arxiv" aria-hidden="true"></i>arXiv</a></li>{% endif %}
+        </ul>
+      </div>
+    {% endif %}
   </div>
 </div>

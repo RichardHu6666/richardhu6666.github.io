@@ -32,6 +32,10 @@ author:
   uri              : 
   email            : ""
 
+  # Curriculum vitae — path relative to the site root, placed at the end of
+  # the sidebar "Links" list. Leave blank to omit the entry.
+  cv               : ""
+
   # Academic websites
   academia         : 
   arxiv            : 
@@ -47,7 +51,7 @@ author:
   bitbucket        : 
   codepen          : 
   dribbble         : 
-  github           : ""
+  github           : "RichardHu6666"
   kaggle           : 
   stackoverflow    : 
 
@@ -77,6 +81,11 @@ author:
   xing             : 
   youtube          : 
   zhihu            : 
+
+# Rendered as the "Research interests" block in the sidebar. One entry per line.
+author_interests:
+  - "Visual intelligence"
+  - "Multimodal learning"
 
 # Publication Category - The following the list of publication categories and their headings
 publication_category:
@@ -162,6 +171,7 @@ exclude:
   - .bundle
   - .github
   - .jekyll-assets-cache
+  - .preview
   - .sass-cache
   - assets/js/_main.js
   - assets/js/plugins

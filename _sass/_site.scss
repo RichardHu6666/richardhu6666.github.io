@@ -1,238 +1,841 @@
+/* ==========================================================================
+   SITE — local visual layer for Richard Hu's homepage
+   --------------------------------------------------------------------------
+   This is the only stylesheet in the project that carries site-specific
+   design decisions. It is imported last (see assets/css/main.scss) so it
+   wins over the vendored Academic Pages foundation without needing
+   !important. Upstream Sass in _sass/layout/* stays untouched.
+
+   Design language
+     · Refined academic  — EB Garamond display headings, Source Sans 3 body
+     · Modern and airy   — generous whitespace, a calm vertical rhythm
+     · Restrained rules  — hairline separators, no boxes or heavy shadows
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. SELF-HOSTED TYPEFACES
+   --------------------------------------------------------------------------
+   Latin subsets, served from /assets/fonts so rendering is identical
+   everywhere and no request leaves the user's browser to a third party.
+   ========================================================================== */
+
+@font-face {
+  font-family: "EB Garamond";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/ebgaramond-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "EB Garamond";
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/ebgaramond-400-italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Source Sans 3";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/sourcesans3-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Source Sans 3";
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/sourcesans3-400-italic.woff2") format("woff2");
+}
+
+
+/* ==========================================================================
+   2. DESIGN TOKENS
+   ========================================================================== */
+
+:root {
+  /* Typeface stacks ------------------------------------------------------ */
+  --font-display: "EB Garamond", "Iowan Old Style", "Palatino Linotype",
+                  "Songti SC", "Source Han Serif SC", "Noto Serif CJK SC",
+                  Georgia, serif;
+  --font-body:    "Source Sans 3", -apple-system, BlinkMacSystemFont,
+                  "Segoe UI", "PingFang SC", "Microsoft YaHei", Roboto,
+                  "Helvetica Neue", Arial, sans-serif;
+
+  /* Ink ------------------------------------------------------------------ */
+  --ink:          #16202b;
+  --ink-soft:     #38495a;
+  --ink-muted:    #5d6f7e;
+  --ink-faint:    #8b9aa6;
+
+  /* Surfaces ------------------------------------------------------------- */
+  --bg:           #ffffff;
+  --bg-sunken:    #f6f7f8;
+  --rule:         #e4e8ec;
+  --rule-soft:    #eef1f4;
+
+  /* Accent — a muted petrol blue, used sparingly ------------------------- */
+  --accent:       #1b5566;
+  --accent-soft:  #2f7f93;
+
+  /* Rhythm --------------------------------------------------------------- */
+  --shell-max:    1240px;
+  --sidebar-w:    312px;
+  --measure:      68ch;
+  --masthead-h:   64px;
+
+  --ease:         cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+
+/* ==========================================================================
+   3. GLOBAL BASE
+   ========================================================================== */
+
+body {
+  background-color: var(--bg);
+  color: var(--ink-soft);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+  /* Override the foundation's 9em bottom pad; the shell owns the spacing. */
+  padding-bottom: 0;
+}
+
+::selection {
+  background: #d7e6ec;
+  color: var(--ink);
+}
+
+/* Visible, consistent keyboard focus everywhere. */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent-soft);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+
+/* ==========================================================================
+   4. MASTHEAD
+   ========================================================================== */
+
+.masthead {
+  height: auto;
+  background: rgba(255, 255, 255, 0.92);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+          backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--rule-soft);
+  animation: none;
+  transition: box-shadow 0.28s var(--ease), border-color 0.28s var(--ease);
+}
+
+/* The header only declares itself once the page has moved. */
+.masthead.is-stuck {
+  border-bottom-color: transparent;
+  box-shadow: 0 1px 0 rgba(22, 32, 43, 0.06), 0 6px 24px rgba(22, 32, 43, 0.055);
+}
+
+.masthead::after {
+  display: none; /* the border above replaces the foundation's pseudo-rule */
+}
+
+.masthead__inner-wrap {
+  max-width: var(--shell-max);
+  margin: 0 auto;
+  padding: 0 28px;
+  font-family: var(--font-body);
+}
+
+.greedy-nav {
+  min-width: 0;
+  background: transparent;
+}
+
+.greedy-nav .visible-links {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 2px;
+}
+
+.greedy-nav .visible-links li {
+  display: block;
+  vertical-align: baseline;
+}
+
+/* Wordmark pushes every navigation link to the right edge. */
+.greedy-nav .visible-links li:first-child {
+  margin-right: auto;
+  font-weight: 400;
+}
+
+.greedy-nav .visible-links li:first-child a {
+  padding: 20px 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+}
+
+.greedy-nav a {
+  margin: 0;
+  padding: 20px 12px;
+  color: var(--ink-muted);
+  font-size: 0.775rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.2s var(--ease);
+}
+
+.greedy-nav a:hover {
+  color: var(--ink);
+}
+
+/* The foundation draws a 4px underline that reads as a heavy block.
+   Replace it with a restrained accent hairline. */
+.greedy-nav .visible-links a::before {
+  height: 1.5px;
+  background: var(--accent);
+  bottom: 14px;
+}
+
+/* Collapsed navigation: the button is revealed by site.js only when the
+   links genuinely stop fitting, so it never overlaps them. */
+.greedy-nav button {
+  height: 40px;
+  margin: 12px 0 12px 8px;
+  padding: 0 4px;
+  background: transparent;
+  color: var(--ink-soft);
+}
+
+.greedy-nav button:hover {
+  color: var(--accent);
+}
+
+.greedy-nav button[hidden] {
+  display: none;
+}
+
+.greedy-nav .hidden-links {
+  margin-top: 12px;
+  padding: 6px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 14px 34px rgba(22, 32, 43, 0.11);
+}
+
+.greedy-nav .hidden-links.hidden {
+  display: none;
+}
+
+.greedy-nav .hidden-links li {
+  display: block;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.greedy-nav .hidden-links li:last-child {
+  border-bottom: 0;
+}
+
+.greedy-nav .hidden-links a {
+  padding: 11px 16px;
+  color: var(--ink-soft);
+  font-size: 0.735rem;
+  letter-spacing: 0.07em;
+  border-radius: 5px;
+}
+
+.greedy-nav .hidden-links a:hover {
+  background: var(--bg-sunken);
+  color: var(--accent);
+}
+
+/* The little pointer arrow is redundant against an 8px radius panel. */
+.greedy-nav .hidden-links::before,
+.greedy-nav .hidden-links::after {
+  display: none;
+}
+
+
+/* ==========================================================================
+   5. PAGE SHELL
+   ========================================================================== */
+
+.main-container {
+  display: block; /* the shell below replaces the layout's own flex row */
+  width: 100%;
+  max-width: none;
+}
+
+.shell {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+  gap: 0 68px;
+  align-items: start;
+  width: min(100% - 56px, var(--shell-max));
+  margin: 0 auto;
+  padding: 58px 0 0;
+}
+
+.rail {
+  min-width: 0;
+}
+
+.content {
+  min-width: 0;
+  padding-bottom: 30px;
+}
+
+
+/* ==========================================================================
+   6. AUTHOR RAIL
+   ========================================================================== */
+
+.profile {
+  font-family: var(--font-body);
+  color: var(--ink-soft);
+  padding-top: 0;
+}
+
+.profile__avatar {
+  display: block;
+  width: 168px;
+  height: 168px;
+  margin: 0 0 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 30%;
+  background: var(--bg-sunken);
+  box-shadow: 0 0 0 1px var(--rule), 0 10px 26px rgba(22, 32, 43, 0.07);
+}
+
+.profile__details {
+  text-align: left;
+}
+
+.profile__details h2 {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.72rem;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0.005em;
+}
+
+.profile__details p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.profile__role {
+  color: var(--accent);
+  font-size: 0.76rem !important;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.profile__affiliation {
+  margin-top: 10px !important;
+  color: var(--ink-muted);
+  font-size: 0.875rem !important;
+  line-height: 1.55;
+}
+
+.profile__block {
+  margin-top: 30px;
+}
+
+.profile__label {
+  margin: 0 0 11px !important;
+  color: var(--ink-faint);
+  font-size: 0.675rem !important;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.profile__interests {
+  margin: 0 !important;
+  color: var(--ink-soft);
+  font-size: 0.9rem !important;
+  line-height: 1.72;
+}
+
+.profile__links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.profile__links li {
+  margin: 0;
+}
+
+.profile__links a {
+  display: inline-block;
+  padding: 3px 0;
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+
+.profile__links a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.profile__links .fas,
+.profile__links .fab,
+.profile__links .ai {
+  width: 1.15em;
+  margin-right: 9px;
+  color: var(--ink-faint);
+  font-size: 0.92em;
+  text-align: center;
+  transition: color 0.2s var(--ease);
+}
+
+.profile__links a:hover .fas,
+.profile__links a:hover .fab,
+.profile__links a:hover .ai {
+  color: var(--accent);
+}
+
+
+/* ==========================================================================
+   7. CONTENT SECTIONS
+   ========================================================================== */
+
 .home-section {
-  padding: 2.1em 0 1.2em;
-  border-bottom: 1px solid #e7ecef;
-  scroll-margin-top: 5.5em;
+  padding: 0 0 56px;
+  margin-bottom: 56px;
+  border-bottom: 1px solid var(--rule-soft);
+  scroll-margin-top: calc(var(--masthead-h) + 24px);
 }
 
 .home-section:first-child {
-  padding-top: 0.2em;
+  padding-top: 0;
 }
 
 .home-section:last-child {
+  margin-bottom: 0;
+  padding-bottom: 8px;
   border-bottom: 0;
 }
 
 .home-section h1,
 .home-section h2,
 .home-section h3 {
-  color: #263b4a;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink);
 }
 
 .home-section h1 {
-  margin: 0 0 0.65em;
-  font-size: 2.25em;
+  margin: 0 0 22px;
+  font-size: 2.95rem;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
 }
 
 .home-section h2 {
-  margin: 0 0 0.9em;
-  font-size: 1.4em;
+  margin: 0 0 26px;
+  font-size: 1.72rem;
+  line-height: 1.22;
+  letter-spacing: -0.002em;
 }
 
 .home-section h3 {
-  margin: 0 0 0.45em;
-  font-size: 1.08em;
+  margin: 0 0 11px;
+  font-size: 1.22rem;
+  font-weight: 600;
+  line-height: 1.35;
 }
 
 .home-section p {
-  max-width: 70ch;
-  line-height: 1.75;
+  max-width: var(--measure);
+  margin-bottom: 1.05em;
+  line-height: 1.78;
 }
 
-.section-kicker,
-.entry-meta {
-  color: #527a91;
-  font-size: 0.76em !important;
-  font-weight: 700;
-  letter-spacing: 0.035em;
+.home-section p:last-child {
+  margin-bottom: 0;
 }
 
+/* Small uppercase eyebrow above each section heading. The extra top margin
+   separates it from the hairline that closes the previous section and gives
+   the heading room to breathe. */
 .section-kicker {
-  margin: 0 0 0.8em !important;
+  margin: 0 0 15px !important;
+  padding-top: 10px;
+  color: var(--ink-faint);
+  font-size: 0.695rem !important;
+  font-weight: 700;
+  letter-spacing: 0.17em;
   text-transform: uppercase;
 }
 
 .native-name {
-  color: #7a8b92;
-  font-size: 0.5em;
-  font-weight: 500;
+  color: var(--ink-faint);
+  font-family: var(--font-body);
+  font-size: 0.42em;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .lead {
-  color: #263b4a;
-  font-size: 1.12em;
-  line-height: 1.7;
+  color: var(--ink-soft);
+  font-size: 1.19rem;
+  line-height: 1.78;
+}
+
+.home-section strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Inline links inside prose get a quiet underline that firms up on hover. */
+.home-section a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(27, 85, 102, 0.3);
+  transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.home-section a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+
+/* ==========================================================================
+   8. RESEARCH & PUBLICATION ENTRIES
+   ========================================================================== */
+
+.research-entry {
+  padding-left: 26px;
+  border-left: 2px solid var(--rule);
+  transition: border-color 0.3s var(--ease);
+}
+
+.research-entry:hover {
+  border-left-color: var(--accent-soft);
 }
 
 .research-entry + .research-entry {
-  margin-top: 1.8em;
-  padding-top: 1.5em;
-  border-top: 1px solid #edf0f1;
+  margin-top: 44px;
+  padding-top: 0;
+  border-top: 0;
 }
 
 .entry-meta {
-  margin: 0 0 0.45em !important;
-}
-
-.publication-entry h3 {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.16em;
-  line-height: 1.55;
-}
-
-.education-entry {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1em;
-}
-
-.education-entry + .education-entry {
-  margin-top: 1.3em;
-}
-
-.education-entry p {
-  margin-bottom: 0;
-  color: #64747b;
-}
-
-.profile {
-  padding-top: 1.2em;
-  color: #344750;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-}
-
-.profile__avatar {
-  display: block;
-  width: min(100%, 220px);
-  aspect-ratio: 1;
-  margin: 0 auto 1.2em;
-  border-radius: 3px;
-  object-fit: cover;
-  object-position: 50% 32%;
-}
-
-.profile__details {
-  text-align: center;
-}
-
-.profile__details h2 {
-  margin: 0 0 0.4em;
-  color: #263b4a;
-  font-size: 1.3em;
+  margin: 0 0 12px !important;
+  color: var(--ink-faint);
+  font-size: 0.7rem !important;
   font-weight: 700;
-}
-
-.profile__details p {
-  margin: 0;
-  font-size: 0.88em;
-  line-height: 1.6;
-}
-
-.profile__role {
-  color: #527a91;
-  font-weight: 650;
-}
-
-.profile__affiliation {
-  margin-top: 0.55em !important;
-  color: #64747b;
-}
-
-.profile__rule {
-  width: 2.5em;
-  height: 1px;
-  margin: 1.4em auto;
-  background: #dce4e6;
-}
-
-.profile__label {
-  color: #718087;
-  font-size: 0.72em !important;
-  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
-.profile__interests {
-  margin-top: 0.35em !important;
-  color: #344750;
+.entry-meta span[aria-hidden] {
+  padding: 0 0.35em;
+  color: var(--rule);
 }
+
+.publication-entry {
+  border-left-color: var(--accent-soft);
+}
+
+.publication-entry h3 {
+  font-family: var(--font-display);
+  font-size: 1.34rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+
+/* ==========================================================================
+   9. EDUCATION LIST
+   ========================================================================== */
+
+.education-entry {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2px 28px;
+  align-items: baseline;
+  padding-left: 26px;
+  border-left: 2px solid var(--rule);
+  transition: border-color 0.3s var(--ease);
+}
+
+.education-entry:hover {
+  border-left-color: var(--accent-soft);
+}
+
+.education-entry + .education-entry {
+  margin-top: 30px;
+}
+
+.education-entry h3 {
+  grid-column: 1;
+  margin: 0 0 6px;
+}
+
+.education-entry p {
+  grid-column: 1;
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 0.94rem;
+  line-height: 1.65;
+}
+
+.education-entry .education-entry__when {
+  grid-column: 2;
+  grid-row: 1;
+  color: var(--ink-faint);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+
+/* ==========================================================================
+   10. FOOTER
+   ========================================================================== */
 
 .page-footer {
   display: flex;
   justify-content: space-between;
-  gap: 1em;
-  max-width: 1280px;
+  align-items: center;
+  gap: 18px;
+  width: min(100% - 56px, var(--shell-max));
+  max-width: none;
   margin: 0 auto;
-  padding: 1.1em 2em 1.5em;
-  border-top: 1px solid #e7ecef;
-  color: #7a878c;
-  font-size: 0.78em;
+  padding: 30px 0 46px;
+  border-top: 1px solid var(--rule-soft);
+  color: var(--ink-faint);
+  font-size: 0.79rem;
 }
 
 .page-footer a {
-  color: inherit;
+  color: var(--ink-muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
 }
 
+.page-footer a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+
+/* ==========================================================================
+   11. RESPONSIVE
+   ========================================================================== */
+
+/* Tablet and below: the rail folds above the content as a horizontal strip. */
 @media (max-width: 1024px) {
+  :root {
+    --measure: 74ch;
+  }
+
+  .shell {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 44px;
+    width: min(100% - 48px, var(--shell-max));
+    padding-top: 44px;
+  }
+
+  .rail {
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
   .profile {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.25em;
-    padding: 0;
+    display: grid;
+    grid-template-columns: 124px minmax(0, 1fr);
+    gap: 30px;
+    align-items: start;
   }
 
   .profile__avatar {
-    width: 112px;
+    width: 124px;
+    height: 124px;
     margin: 0;
   }
 
-  .profile__details {
-    text-align: left;
+  .profile__details h2 {
+    font-size: 1.5rem;
   }
 
-  .profile__rule,
-  .profile__label,
-  .profile__interests {
-    display: none;
+  .profile__block {
+    margin-top: 22px;
+  }
+
+  /* Rail links sit side by side once the rail is full width. */
+  .profile__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 26px;
+  }
+
+  .masthead__inner-wrap {
+    padding: 0 24px;
+  }
+
+  .page-footer {
+    width: min(100% - 48px, var(--shell-max));
   }
 }
 
-@media (max-width: 600px) {
-  .main-container {
-    padding-top: 0;
+/* Phones. */
+@media (max-width: 640px) {
+  body {
+    font-size: 16px;
+  }
+
+  .shell {
+    width: calc(100% - 36px);
+    gap: 36px;
+    padding-top: 34px;
   }
 
   .home-section {
-    padding: 1.6em 0 1em;
+    padding-bottom: 40px;
+    margin-bottom: 40px;
   }
 
   .home-section h1 {
-    font-size: 1.85em;
+    font-size: 2.15rem;
   }
 
+  .home-section h2 {
+    margin-bottom: 20px;
+    font-size: 1.46rem;
+  }
+
+  .home-section h3 {
+    font-size: 1.14rem;
+  }
+
+  .lead {
+    font-size: 1.09rem;
+  }
+
+  .research-entry,
   .education-entry {
-    display: block;
+    padding-left: 18px;
+  }
+
+  .research-entry + .research-entry {
+    margin-top: 34px;
+  }
+
+  /* No room for a second column — the date moves under the heading. */
+  .education-entry {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .education-entry .education-entry__when {
+    grid-column: 1;
+    grid-row: auto;
+    margin-bottom: 6px;
+  }
+
+  .profile {
+    grid-template-columns: 88px minmax(0, 1fr);
+    gap: 20px;
   }
 
   .profile__avatar {
     width: 88px;
-    flex: 0 0 88px;
+    height: 88px;
   }
 
-  .right-content {
-    padding-right: 1.25em;
-    padding-left: 1.25em;
+  .profile__details h2 {
+    font-size: 1.34rem;
+  }
+
+  .masthead__inner-wrap {
+    padding: 0 18px;
+  }
+
+  .greedy-nav .visible-links li:first-child a {
+    padding: 18px 0;
+    font-size: 1.2rem;
   }
 
   .page-footer {
     display: block;
-    padding-right: 1.25em;
-    padding-left: 1.25em;
+    width: calc(100% - 36px);
+    padding: 26px 0 38px;
   }
 
   .page-footer a {
     display: inline-block;
-    margin-top: 0.4em;
+    margin-top: 7px;
+  }
+}
+
+
+/* ==========================================================================
+   12. MOTION PREFERENCES & PRINT
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  .masthead,
+  .rail,
+  .page-footer {
+    display: none;
+  }
+
+  .shell {
+    display: block;
+    width: 100%;
+    padding: 0;
+  }
+
+  .home-section {
+    padding-bottom: 18px;
+    margin-bottom: 18px;
+    break-inside: avoid;
+  }
+
+  .home-section a {
+    border-bottom: 0;
   }
 }

@@ -1,6 +1,11 @@
 # Generated site files
 _site/
 
+# Local development scratch: preview harness and its dependencies
+/.preview/
+node_modules/
+package-lock.json
+
 # Jekyll and Sass cache
 .sass-cache/
 .jekyll-cache/
