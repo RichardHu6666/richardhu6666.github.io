@@ -39,6 +39,31 @@ en: &DEFAULT_EN
   comment_success_msg        : "Thanks for your comment! It will show on the site once it has been approved."
   comment_error_msg          : "Sorry, there was an error with your submission. Please make sure all required fields have been completed and try again."
   loading_label              : "Loading..."
+
+  # Site-specific chrome. Not part of upstream Academic Pages; consumed by
+  # _includes/masthead.html and _includes/author-profile.html. Navigation lives
+  # here too rather than in its own file, so that a language can be selected
+  # with a single lookup - `site.data.ui-text[page.lang]` - and no data file
+  # needs a dot in its name (Jekyll documents the basename as the key, and a
+  # dotted filename's key is unspecified).
+  nav:
+    - title: "Research"
+      url: /#research
+    - title: "Projects"
+      url: /#work
+    - title: "Publications"
+      url: /#publications
+    - title: "Education"
+      url: /#education
+  role                       : "Incoming PhD Student"
+  employer                   : "Institute of Automation, Chinese Academy of Sciences"
+  interests_label            : "Research interests"
+  links_label                : "Links"
+  cv_label                   : "Curriculum Vitae"
+  scholar_label              : "Google Scholar"
+  portrait_alt               : "Portrait"
+  lang_switch                : "中文"
+  lang_switch_title          : "切换到中文"
 en-US:
   <<: *DEFAULT_EN
 en-CA:
@@ -305,6 +330,26 @@ zh: &DEFAULT_ZH
   comment_success_msg        : "感谢您的评论！审核通过后会显示在网站上。"
   comment_error_msg          : "抱歉，提交时出错。请确保所有必填项已完成，并重试。"
   loading_label              : "加载中..."
+
+  # Site-specific chrome; see the English block above.
+  nav:
+    - title: "研究方向"
+      url: /zh/#research
+    - title: "项目"
+      url: /zh/#work
+    - title: "论文"
+      url: /zh/#publications
+    - title: "教育经历"
+      url: /zh/#education
+  role                       : "准博士研究生"
+  employer                   : "中国科学院自动化研究所"
+  interests_label            : "研究兴趣"
+  links_label                : "链接"
+  cv_label                   : "简历"
+  scholar_label              : "谷歌学术"
+  portrait_alt               : "肖像"
+  lang_switch                : "EN"
+  lang_switch_title          : "Switch to English"
 zh-CN:
   <<: *DEFAULT_ZH
 
