@@ -10,7 +10,7 @@
 main:
   - title: "Research"
     url: /#research
-  - title: "Selected Work"
+  - title: "Projects"
     url: /#work
   - title: "Publications"
     url: /#publications

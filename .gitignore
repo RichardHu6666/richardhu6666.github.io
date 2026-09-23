@@ -18,6 +18,10 @@ package-lock.json
 /*.pptx
 /mypic*.jpg
 
+# Source images for the project figures. Optimized derivatives live in
+# assets/images/research/; keep the originals local (one is ~30 MB).
+/pics/
+
 # OS generated files
 .DS_Store
 .DS_Store?

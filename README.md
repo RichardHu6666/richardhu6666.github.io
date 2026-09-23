@@ -31,6 +31,18 @@ The site is a single-page Jekyll adaptation of [Minimalist Academic Portfolio](h
 - Headings use EB Garamond and body text Source Sans 3, both self-hosted as
   Latin-subset `woff2` files in `assets/fonts/`. No third-party font request is
   made at runtime.
+- Project figures live in `assets/images/research/` and are referenced from
+  `index.html`. The originals stay in `pics/`, which is git-ignored because one
+  of them is ~30 MB; the committed derivatives total ~380 KB. To refresh them,
+  drop replacements into `pics/` and re-run:
+
+  ```sh
+  python .preview/prepare-figures.py
+  ```
+
+  That script also normalizes format: the source files arrived with a WebP
+  carrying a `.jpg` extension and a 13086×5883 PNG, neither of which belongs on
+  a web page.
 
 The original photo, application CV, and interview presentation at the repository root are local source materials and are ignored by Git. They are also excluded from the Jekyll output. Do not add them to the site without reviewing their personal information.
 
