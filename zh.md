@@ -57,7 +57,7 @@ description: "东南大学智能感知工程本科生，已获推免资格，202
   <article class="research-entry publication-entry">
     <p class="entry-meta">第一作者 <span aria-hidden="true">·</span> 2025 年投稿</p>
     <h3>The Robotic Era of Gynecologic Surgery: A Comprehensive Review and the Next-Decade Outlook</h3>
-    <p>已投稿至 <em>Intelligent Medicine</em>（JCR Q1，IF 6.9）。提出"临床需求—工程设计"双向映射框架，打破传统综述对机器人系统的黑盒化处理，并给出妇科手术机器人的设计与未来发展蓝图。</p>
+    <p>已投稿至 <em>Intelligent Medicine</em>（JCR Q1，IF 6.9）。提出“临床需求—工程设计”双向映射框架，避免把机器人系统当作黑盒处理，并给出妇科手术机器人的设计与未来发展蓝图。</p>
     <figure class="research-figure">
       <img src="/assets/images/research/gyn-surgery-survey.jpg" alt="综述组织框架图：左侧为需求与约束，中部为机器人设计与人机交互及工作流，右侧为临床应用，三者之间以带标注的映射箭头连接。" width="1400" height="764" loading="lazy" decoding="async">
       <figcaption>综述的组织框架：由临床需求经机器人设计与人机交互，映射到临床应用。</figcaption>
@@ -72,7 +72,7 @@ description: "东南大学智能感知工程本科生，已获推免资格，202
     <div class="education-entry__body">
       <p class="education-entry__when">2023 – 2027（预计）</p>
       <h3 itemprop="name">东南大学</h3>
-      <p itemprop="description">仪器科学与工程学院，智能感知工程学士。</p>
+      <p itemprop="description">仪器科学与工程学院，智能感知工程专业，工学学士。</p>
     </div>
   </article>
   <article class="education-entry" itemscope itemtype="https://schema.org/EducationalOrganization">
