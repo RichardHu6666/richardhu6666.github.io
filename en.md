@@ -1,9 +1,10 @@
 ---
 layout: default
-title: XiangyunHu
-permalink: /
+title: About
+permalink: /en/
 lang: en
 author_profile: true
+description: "Undergraduate in Intelligent Sensing Engineering at Southeast University, joining the Institute of Automation, Chinese Academy of Sciences as a PhD student in 2027. Research interests in visual intelligence and multimodal learning."
 ---
 
 <section id="about" class="home-section">
@@ -28,7 +29,7 @@ author_profile: true
     <p>Led a full perception–decision–control pipeline for autonomous driving. Disparity matching was improved through multi-resolution processing and online parameter updates; long-tail scenario decisions were handled with a mixture-of-experts model and diffusion-based sample generation.</p>
     <p>Completed with distinction (top 20%), with the largest individual contribution, and produced <strong>two granted invention patents</strong> (first and second inventor).</p>
     <figure class="research-figure">
-      <img src="assets/images/research/auto-driving.jpg" alt="System architecture of the autonomous driving project: multi-resolution stereo disparity matching, an asynchronous online parameter update mechanism, a safety review block, a SAC and diffusion mixture-of-experts decision model, Jetson deployment, and diffusion-based augmentation of long-tail trajectories." width="1400" height="629" loading="lazy" decoding="async">
+      <img src="/assets/images/research/auto-driving.jpg" alt="System architecture of the autonomous driving project: multi-resolution stereo disparity matching, an asynchronous online parameter update mechanism, a safety review block, a SAC and diffusion mixture-of-experts decision model, Jetson deployment, and diffusion-based augmentation of long-tail trajectories." width="1400" height="629" loading="lazy" decoding="async">
       <figcaption>Pipeline overview: multi-resolution stereo matching with online parameter updates, safety arbitration, a mixture-of-experts decision model, and diffusion-based long-tail augmentation, deployed on a Jetson platform.</figcaption>
     </figure>
   </article>
@@ -39,7 +40,7 @@ author_profile: true
     <p>Developed a coupled thermal–mechanical model based on mass-spring dynamics and finite differences to simulate heat shrinkage and warping during printing. Delivered in collaboration with Shenzhen Creality 3D Technology, with a mean error of <strong>0.04 mm</strong> on the simulation test set.</p>
     <p>Sole contributor on the delivered project.</p>
     <figure class="research-figure">
-      <img src="assets/images/research/fdm-warping.jpg" alt="An FDM 3D printer extruding a small red printed part on its build plate." width="1400" height="787" loading="lazy" decoding="async">
+      <img src="/assets/images/research/fdm-warping.jpg" alt="An FDM 3D printer extruding a small red printed part on its build plate." width="1400" height="787" loading="lazy" decoding="async">
       <figcaption>FDM printing, the process the thermal–mechanical model simulates.</figcaption>
     </figure>
   </article>
@@ -58,7 +59,7 @@ author_profile: true
     <h3>The Robotic Era of Gynecologic Surgery: A Comprehensive Review and the Next-Decade Outlook</h3>
     <p>Submitted to <em>Intelligent Medicine</em> (JCR Q1, IF 6.9). Proposes a clinical-need-to-engineering-design mapping framework that avoids the usual black-box treatment of robotic systems, and sets out a design and development roadmap for gynecologic surgical robotics.</p>
     <figure class="research-figure">
-      <img src="assets/images/research/gyn-surgery-survey.jpg" alt="Diagram of the survey's organizing framework: requirements and constraints on the left, robotic design and human-robot interaction and workflow in the middle, and clinical applications on the right, joined by labelled mapping arrows." width="1400" height="764" loading="lazy" decoding="async">
+      <img src="/assets/images/research/gyn-surgery-survey.jpg" alt="Diagram of the survey's organizing framework: requirements and constraints on the left, robotic design and human-robot interaction and workflow in the middle, and clinical applications on the right, joined by labelled mapping arrows." width="1400" height="764" loading="lazy" decoding="async">
       <figcaption>The review's organizing framework, mapping clinical requirements through robotic design and human-robot interaction to clinical applications.</figcaption>
     </figure>
   </article>
@@ -67,15 +68,15 @@ author_profile: true
 <section id="education" class="home-section">
   <h2 class="section-kicker">04 / Education</h2>
   <article class="education-entry" itemscope itemtype="https://schema.org/CollegeOrUniversity">
-    <img class="education-entry__mark" src="assets/images/institutions/seu.png" alt="" width="44" height="44" loading="lazy" decoding="async">
+    <img class="education-entry__mark" src="/assets/images/institutions/seu.png" alt="" width="44" height="44" loading="lazy" decoding="async">
     <div class="education-entry__body">
       <p class="education-entry__when">2023 – 2027 (expected)</p>
       <h3 itemprop="name">Southeast University</h3>
-      <p itemprop="description">BEng in Intelligent Sensing Engineering, School of Instrument Science and Engineering. GPA 3.81/4.8, ranked 5/57, recommended for postgraduate admission without examination.</p>
+      <p itemprop="description">BEng in Intelligent Sensing Engineering, School of Instrument Science and Engineering.</p>
     </div>
   </article>
   <article class="education-entry" itemscope itemtype="https://schema.org/EducationalOrganization">
-    <img class="education-entry__mark" src="assets/images/institutions/casia.png" alt="" width="44" height="44" loading="lazy" decoding="async">
+    <img class="education-entry__mark" src="/assets/images/institutions/casia.png" alt="" width="44" height="44" loading="lazy" decoding="async">
     <div class="education-entry__body">
       <p class="education-entry__when">From 2027</p>
       <h3 itemprop="name">Institute of Automation, Chinese Academy of Sciences</h3>

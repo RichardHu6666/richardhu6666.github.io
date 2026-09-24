@@ -1,7 +1,7 @@
 ---
 layout: default
 title: 胡翔耘
-permalink: /zh/
+permalink: /
 lang: zh
 author_profile: true
 description: "东南大学智能感知工程本科生，已获推免资格，2027 年将赴中国科学院自动化研究所攻读博士。研究方向为视觉智能与多模态学习。"
@@ -72,7 +72,7 @@ description: "东南大学智能感知工程本科生，已获推免资格，202
     <div class="education-entry__body">
       <p class="education-entry__when">2023 – 2027（预计）</p>
       <h3 itemprop="name">东南大学</h3>
-      <p itemprop="description">仪器科学与工程学院，智能感知工程学士。GPA 3.81/4.8，综合排名 5/57，已获推免资格。</p>
+      <p itemprop="description">仪器科学与工程学院，智能感知工程学士。</p>
     </div>
   </article>
   <article class="education-entry" itemscope itemtype="https://schema.org/EducationalOrganization">

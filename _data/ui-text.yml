@@ -48,13 +48,13 @@ en: &DEFAULT_EN
   # dotted filename's key is unspecified).
   nav:
     - title: "Research"
-      url: /#research
+      url: /en/#research
     - title: "Projects"
-      url: /#work
+      url: /en/#work
     - title: "Publications"
-      url: /#publications
+      url: /en/#publications
     - title: "Education"
-      url: /#education
+      url: /en/#education
   role                       : "Incoming PhD Student"
   employer                   : "Institute of Automation, Chinese Academy of Sciences"
   interests_label            : "Research interests"
@@ -337,13 +337,13 @@ zh: &DEFAULT_ZH
   # Site-specific chrome; see the English block above.
   nav:
     - title: "研究方向"
-      url: /zh/#research
+      url: /#research
     - title: "项目"
-      url: /zh/#work
+      url: /#work
     - title: "论文"
-      url: /zh/#publications
+      url: /#publications
     - title: "教育经历"
-      url: /zh/#education
+      url: /#education
   role                       : "准博士研究生"
   employer                   : "中国科学院自动化研究所"
   interests_label            : "研究兴趣"

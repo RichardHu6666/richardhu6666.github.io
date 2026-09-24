@@ -88,21 +88,20 @@
   --accent-soft:  #2f7f93;
 
   /* Rhythm --------------------------------------------------------------- */
-  /* Sized so the three pieces fit exactly: rail 300 + gap 64 + measure 680.
-     Making the shell wider than their sum would not widen the text - the
-     measure caps that - it would only open a fresh void between the rail and
-     the content. Anything narrower squeezes the text. So this is the only
-     control point, and on wider windows the band simply centres. */
-  --shell-max:    1044px;
+  /* The content column is rail + gap + measure wide, and the measure fills it,
+     so the text uses the whole column rather than leaving a void to its right.
+     Chinese needs the room: a han character is a full em, so the same pixel
+     width carries far fewer characters than Latin text does - 680px held only
+     about 35 of them. At 884px it is roughly 46, which is a comfortable line. */
+  --shell-max:    1208px;
   /* Side margin of the shell. Only bites below --shell-max, where it keeps the
      text off the window edge. */
   --shell-pad:    40px;
-  --sidebar-w:    300px;
+  --sidebar-w:    260px;
   /* Line length for running text. Expressed in px rather than `ch` because the
      `ch` unit is the width of "0", which in Source Sans 3 is narrow — 68ch
-     measured only ~489px and left a wide void to the right of every line.
-     680px runs about 67 characters, which is mid-range for comfortable reading. */
-  --measure:      680px;
+     measured only ~489px and left a wide void to the right of every line. */
+  --measure:      884px;
   --masthead-h:   64px;
 
   --ease:         cubic-bezier(0.22, 0.61, 0.36, 1);
@@ -795,9 +794,9 @@ button:focus-visible {
 @media (max-width: 1024px) {
   :root {
     --shell-pad: 28px;
-    /* One full-width column: the measure can open up, it no longer competes
-       with the rail for horizontal space. */
-    --measure: 760px;
+    /* One full-width column: the measure can fill it, since it no longer
+       competes with the rail for horizontal space. */
+    --measure: 100%;
   }
 
   .shell {

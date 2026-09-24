@@ -5,16 +5,19 @@
   or "zh") and selects the navigation list, the wordmark target, the language
   toggle and the rail wording (the last of these lives in author-profile.html).
 
-  Anchor ids are the same on both language versions - only the labels differ -
-  so the toggle can drop the reader at the section they were already reading.
+  Chinese is the default and is served from the site root; English lives at
+  /en/. Anchor ids are the same on both versions - only the labels differ - so
+  the toggle can drop the reader at the section they were already reading.
 {% endcomment %}
-{% assign page_lang = page.lang | default: "en" %}
+{% assign page_lang = page.lang | default: "zh" %}
 {% assign ui = site.data.ui-text[page_lang] %}
 {% assign nav_items = ui.nav %}
-{% if page_lang == "zh" %}
-  {% assign home_url = "/zh/" %}
+{% if page_lang == "en" %}
+  {% assign home_url = "/en/" %}
+  {% assign other_url = "/" %}
 {% else %}
   {% assign home_url = "/" %}
+  {% assign other_url = "/en/" %}
 {% endif %}
 
 <div class="masthead">
@@ -37,10 +40,10 @@
             </li>
           {% endfor %}
           <li class="masthead__menu-item masthead__menu-item--lang">
-            {% if page_lang == "zh" %}
-              <a href="{{ base_path }}/" hreflang="en" lang="en" title="{{ ui.lang_switch_title | default: 'Switch to English' }}">{{ ui.lang_switch | default: "EN" }}</a>
+            {% if page_lang == "en" %}
+              <a href="{{ base_path }}{{ other_url }}" hreflang="zh-Hans" lang="zh-Hans" title="{{ ui.lang_switch_title | default: '切换到中文' }}">{{ ui.lang_switch | default: "中文" }}</a>
             {% else %}
-              <a href="{{ base_path }}/zh/" hreflang="zh-Hans" lang="zh-Hans" title="{{ ui.lang_switch_title | default: '切换到中文' }}">{{ ui.lang_switch | default: "中文" }}</a>
+              <a href="{{ base_path }}{{ other_url }}" hreflang="en" lang="en" title="{{ ui.lang_switch_title | default: 'Switch to English' }}">{{ ui.lang_switch | default: "EN" }}</a>
             {% endif %}
           </li>
         </ul>
